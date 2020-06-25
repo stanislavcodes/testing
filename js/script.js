@@ -1,18 +1,41 @@
+/////////////////////// selectors
+// mobile nav
+const body = document.getElementById("body");
+const headingBox = document.querySelector(".section-hero__heading-box");
+const nav = document.querySelector(".nav");
+const list = document.querySelector(".nav__list");
+const hamburger = document.querySelector(".nav__hamburger");
 // questions and answers
 const questions = document.querySelectorAll(".question");
 const questionBoxes = document.querySelectorAll(".question-box");
 const answers = document.querySelectorAll(".answer");
-// event listenetrs
+/////////////////////// event listeners
+// hamburger menu
+hamburger.addEventListener("click", function (e) {
+  navToggle(e);
+});
+// questions and answers
 for (let i = 0; i < questions.length; i++) {
   questions[i].addEventListener("click", check(i));
 }
+/////////////////////// functions
+// mobile nav open
+function navToggle(e) {
+  e.preventDefault();
+  body.classList.toggle("open");
+  hamburger.classList.toggle("open");
+  nav.classList.toggle("open");
+  list.classList.toggle("open");
+  headingBox.classList.toggle("open");
+}
+
+//questions and answers logic
 function calcAnswerHeight(par) {
   let d = par;
   let questionHeight = window.getComputedStyle(questions[d]).height;
   let answerHeight = window.getComputedStyle(answers[d]).height;
   questionBoxes[d].style.height = `calc(${questionHeight} + ${answerHeight})`;
 }
-//questions and answers logic
 (function (a) {
   // open first answer when page is loaded'
   for(i = 0; i < questionBoxes.length; i++) {

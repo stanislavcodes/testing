@@ -3,7 +3,55 @@ $lightgreen: #dbf2d7;
 $darkgreen: #317324;
 $white: #f4f6ff;
 $grey: #e3e8ff;
+// mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+// Media queries manager
+// Breakpoints
+$breakpoints: (
+  xsmall: 359px,
+  small: 499px,
+  medium: 699px,
+  xmedium: 899px,
+  large: 1023px,
+  xlarge: 1459px,
+  xxlarge: 1859px,
+  xxxlarge: 2099px,
+);
+
+@mixin breakpointMax($size) {
+  $breakpoint-value: map-get($breakpoints, $size);
+
+  @media screen and (max-width: $breakpoint-value) {
+    @content;
+  }
+}
+@mixin breakpointMin($size) {
+  $breakpoint-value: map-get($breakpoints, $size);
+
+  @media screen and (min-width: $breakpoint-value) {
+    @content;
+  }
+}
+@mixin breakpointMinMax($sizeMin, $sizeMax) {
+  $breakpoint-value-min: map-get($breakpoints, $sizeMin);
+  $breakpoint-value-max: map-get($breakpoints, $sizeMax);
+
+  @media (min-width: $breakpoint-value-min) and (max-width: $breakpoint-value-max) {
+    @content;
+  }
+}
+@mixin breakpointMinMaxCustom($sizeMin, $sizeMax) {
+  @media (min-width: $sizeMin) and (max-width: $sizeMax) {
+    @content;
+  }
+}
+
+////////////////////////
 *,
 *::before,
 *::after {
@@ -24,14 +72,120 @@ h6 {
   box-sizing: border-box;
 }
 
+.text-right {
+  text-align: right;
+}
+.heading {
+  &-primary {
+    // font-family: $fontDM;
+    // font-size: 4.5rem;
+    font-size: calc(12 * 1vw);
+    color: #fff;
+    line-height: 100%;
+    margin-bottom: 5vh;
+
+    @include breakpointMin(large) {
+      font-size: calc(6 * 1vw);
+    }
+
+    @media (min-width: 1023px) and (max-width: 1300px) and (max-height: 801px) {
+      font-size: calc(8 * 1vw);
+    }
+  }
+
+  &-secondary {
+    // font-family: "Rubik", sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: $darkgreen;
+    font-size: 1.8rem;
+    line-height: 167%;
+    letter-spacing: 0.1em;
+    margin: 1rem 0 2rem 0;
+
+    @include breakpointMin(small) {
+      font-size: 2.2rem;
+    }
+
+    @include breakpointMin(large) {
+      font-size: 2.4rem;
+    }
+  }
+
+  &-tertiary {
+    // font-family: $fontDM;
+    font-size: 2.8rem;
+    line-height: 140%;
+    color: $darkgreen;
+    margin-top: 2.5rem;
+
+    @include breakpointMin(medium) {
+      font-size: 3.2rem;
+    }
+    @include breakpointMin(large) {
+      font-size: 4rem;
+    }
+    @include breakpointMin(xlarge) {
+      font-size: 4.8rem;
+    }
+  }
+}
+
+.paragraph {
+  font-size: 1.3rem;
+  line-height: 200%;
+  padding-right: 2rem;
+
+  &-right {
+    padding-right: 0;
+    padding-left: 2rem;
+  }
+}
 body {
   background-color: $lightgreen;
   padding: 1.6rem 0 0 0;
 }
 
-.wrapper {
+.container {
   width: 100%;
-  height: 200vh;
+  // height: 200vh;
+  border-radius: 1rem;
+  padding: 1.6rem;
+  padding-top: 7rem;
+  position: relative;
+  // display: flex;
+  // justify-content: center;
+}
+
+.section {
+  &-info {
+    padding: 1.6rem;
+    border-radius: 1rem;
+    margin-bottom: 4rem;
+    background-color: $white;
+    width: 100%;
+    // height: 100vh;
+  }
+}
+
+.article {
+  font-size: 1.4rem;
+}
+
+.figure {
+  width: 100%;
+  height: 30rem;
+  @include flex-center;
+}
+
+.illustration {
+  width: 70%;
+}
+
+.questions-section {
+  width: 100%;
+  height: 150vh;
   border-radius: 1rem;
   padding: 1.6rem;
   padding-top: 4rem;
@@ -63,10 +217,11 @@ body {
     justify-content: space-around;
   }
 
-  &__left-box, &__right-box {
+  &__left-box,
+  &__right-box {
     @media (min-width: 799px) {
       width: 45%;
-    } 
+    }
   }
 }
 
@@ -179,6 +334,295 @@ body {
     }
     .plus .span {
       background-color: $darkgreen;
+    }
+  }
+  &-nav {
+    height: 40px;
+    width: 180px;
+    padding: 0 2rem;
+    background: $darkgreen;
+    background-size: 400%;
+    background-position: left;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    height: 50px;
+    letter-spacing: 1.8px;
+    font-size: 1.6rem;
+    font-weight: bold;
+
+    @include breakpointMin(small) {
+      height: 50px;
+      width: 200px;
+    }
+
+    @include breakpointMinMaxCustom(759px, 900px) {
+      height: 60px;
+      width: 220px;
+    }
+
+    @include breakpointMin(large) {
+      height: 60px;
+      width: 160px;
+    }
+
+    @media (min-width: 1023px) and (max-height: 800px) {
+      height: 50px;
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.logo {
+  flex-basis: calc(100% - 35px);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  @include breakpointMin(large) {
+    flex-basis: auto;
+  }
+
+  &--text {
+    text-transform: uppercase;
+    font-size: 2.2rem;
+    color: #fff;
+
+    @include breakpointMin(large) {
+      font-size: 3.2rem;
+    }
+    @media (min-width: 1023px) and (max-height: 800px) {
+      font-size: 2.8rem;
+    }
+  }
+  &--img {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-right: 1rem;
+
+    @include breakpointMin(large) {
+      height: 5rem;
+      width: 5rem;
+      margin-right: 1rem;
+    }
+    @media (min-width: 1023px) and (max-height: 800px) {
+      height: 4rem;
+      width: 4rem;
+    }
+  }
+}
+
+.nav {
+  max-height: calc(4.5vh + 35px);
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding: 2.25vh 3vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-size: 0, 260%;
+  background-position: 50% -10rem;
+  transition: all 0.5s ease;
+  z-index: 10000;
+
+  background-color: #649b5977;
+
+  @include breakpointMin(large) {
+    max-height: calc(5.5vh + 6rem);
+    position: relative;
+    padding: 5vh 15vw 0 15vw;
+    flex-wrap: nowrap;
+    background: none;
+  }
+
+  @include breakpointMinMaxCustom(1200px, 1441px) {
+    padding: 5vh 13vw 0 13vw;
+  }
+  @media (min-width: 1023px) and (max-width: 1100px) and (max-height: 1380px) {
+    padding: 2vh 5vw 0 5vw;
+  }
+
+  @media (min-width: 1023px) and (max-width: 1300px) and (max-height: 801px) {
+    padding: 2vh 5vw 0 5vw;
+  }
+
+  &.open {
+    max-height: 80vh;
+    background-size: 160%, 0;
+    background-position: center;
+    border-bottom-left-radius: 4.5rem;
+    border-bottom-right-radius: 4.5rem;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 4px rgba(245, 136, 109, 0.25);
+  }
+
+  &__list {
+    order: 2;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    visibility: hidden;
+    transform: translateY(-140%);
+    transition: transform 0.8s 0s, padding 0.8s, visibility 0.4s;
+
+    @include breakpointMin(large) {
+      height: 6rem;
+      width: auto;
+      order: 1;
+      transform: translateY(0);
+      visibility: visible;
+      flex-direction: row;
+      // margin-right: 12vw;
+    }
+  }
+
+  &.open &__list {
+    transform: translateY(0);
+    padding: 7.5rem 0;
+    visibility: visible;
+  }
+  &__item {
+    transition: all 0.3s ease-in 0.2s;
+    &--1 {
+      transform: translate(80px, -40px);
+    }
+    &--2 {
+      transform: translate(-80px, 0);
+    }
+    &--3 {
+      transform: translate(80px, 20px);
+    }
+    &--4 {
+      transform: translate(0, 0);
+    }
+
+    @include breakpointMin(large) {
+      transform: translate(0px, 0px);
+    }
+    &:not(:last-child) {
+      margin-bottom: 3.5rem;
+
+      @include breakpointMin(large) {
+        margin-bottom: 0;
+        margin-right: 10rem;
+      }
+    }
+  }
+
+  &.open &__item {
+    &--1 {
+      transform: translate(0px, 0px);
+    }
+    &--2 {
+      transform: translate(0px, 0px);
+    }
+    &--3 {
+      transform: translate(0px, 0px);
+    }
+    &--4 {
+      transform: translate(0, 0);
+    }
+  }
+  &__link {
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.6rem;
+
+    @media (min-width: 1023px) and (max-width: 1300px) and (max-height: 801px) {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.nav {
+  &__hamburger--container {
+    order: 1;
+    flex-basis: 35px;
+    width: 35px;
+    height: 35px;
+    @include flex-center;
+
+    @include breakpointMin(large) {
+      order: 2;
+      display: none;
+    }
+  }
+
+  &__hamburger {
+    z-index: 10;
+    height: 24px;
+    width: 35px;
+    position: relative;
+    cursor: pointer;
+
+    &-span {
+      display: block;
+      position: absolute;
+      height: 4px;
+      background-color: #fff;
+      transition: all 0.25s ease-in-out;
+
+      &--1 {
+        left: 0;
+        top: 0;
+        width: 21px;
+      }
+      &--2 {
+        left: 0;
+        top: 10px;
+        width: 35px;
+      }
+      &--3 {
+        left: 0;
+        top: 10px;
+        width: 35px;
+      }
+      &--4 {
+        right: 0;
+        top: 20px;
+        width: 21px;
+      }
+    }
+
+    &.open &-span--1 {
+      width: 0;
+      top: 10px;
+      right: 50%;
+      transform: scale(0) translateX(100px);
+    }
+
+    &.open &-span--2 {
+      transform: rotate(-45deg);
+      top: 10px;
+    }
+
+    &.open &-span--3 {
+      transform: rotate(45deg);
+      top: 10px;
+    }
+
+    &.open &-span--4 {
+      width: 0;
+      top: 10px;
+      // left: 50%;
+      transform: scale(0) translateX(-100px);
     }
   }
 }
