@@ -356,7 +356,7 @@ body {
     padding: 7.5rem 0;
     visibility: visible; }
   .nav__item {
-    transition: all 0.3s ease-in 0.2s; }
+    transition: all 0.3s ease 0.1s; }
     .nav__item--1 {
       transform: translate(80px, -40px); }
     .nav__item--2 {

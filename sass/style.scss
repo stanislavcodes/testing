@@ -496,7 +496,7 @@ body {
     visibility: visible;
   }
   &__item {
-    transition: all 0.3s ease-in 0.2s;
+    transition: all 0.3s ease 0.1s;
     &--1 {
       transform: translate(80px, -40px);
     }
