@@ -2,7 +2,6 @@
 const questions = document.querySelectorAll(".question");
 const questionBoxes = document.querySelectorAll(".question-box");
 const answers = document.querySelectorAll(".answer");
-const answerTexts = document.querySelectorAll(".answer__text");
 // event listenetrs
 for (let i = 0; i < questions.length; i++) {
   questions[i].addEventListener("click", check(i));
@@ -11,8 +10,6 @@ function calcAnswerHeight(par) {
   let d = par;
   let questionHeight = window.getComputedStyle(questions[d]).height;
   let answerHeight = window.getComputedStyle(answers[d]).height;
-  let answerPaddingTop = window.getComputedStyle(answers[d]).paddingTop;
-  let answerPaddingBottom = window.getComputedStyle(answers[d]).paddingBottom;
   questionBoxes[d].style.height = `calc(${questionHeight} + ${answerHeight})`;
 }
 //questions and answers logic
